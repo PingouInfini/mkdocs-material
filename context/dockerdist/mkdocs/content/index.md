@@ -1,4 +1,4 @@
-Manuel d'exemple
+Manuel d'exemple V0.1
 
 ???+ note "Note repliable"
 
