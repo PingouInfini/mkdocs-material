@@ -1,0 +1,7 @@
+version: '3'
+services:
+  mkdocs-material:
+    image: pingouinfinihub/mkdocs-material:latest
+    container_name: mkdocs-material
+    build:
+      context: ./context/
