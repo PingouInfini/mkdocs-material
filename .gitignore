@@ -1,0 +1,11 @@
+######################
+# Intellij
+######################
+.idea/
+*.iws
+*.ipr
+*.ids
+*.iml
+*.orig
+classes/
+out/
