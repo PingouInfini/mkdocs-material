@@ -107,12 +107,13 @@ COPY .gitignore .
 COPY content/ content
 
 # Publish 1st version
+RUN sed -i 's/mkdocs-materials/mkdocs-materials v0.1/g' content/index.md
 RUN git add .
 RUN git commit -am "init commit"
 RUN mike deploy --update-aliases 0.1 latest
 
 # Publish 2nd version
-RUN sed -i 's/V0.1/v0.2/g' content/index.md
+RUN sed -i 's/v0.1/v0.2/g' content/index.md
 RUN git add .
 RUN git commit -am "commit 2nd version"
 RUN mike deploy --update-aliases 0.2 latest

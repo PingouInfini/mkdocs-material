@@ -122,4 +122,4 @@ Right aligned columns
 
 
 ??? quote "code exemple"
-    [markdown-it](https://markdown-it.github.io/)
+[markdown-it](https://markdown-it.github.io/)

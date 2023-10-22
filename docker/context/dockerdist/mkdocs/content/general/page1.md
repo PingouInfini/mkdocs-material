@@ -1,5 +1,3 @@
-Manuel d'exemple V0.1
-
 ???+ note "Note repliable"
 
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
@@ -33,7 +31,7 @@ Manuel d'exemple V0.1
         Lorem Ipsum 2
     === "tab 3"
         Lorem Ipsum 3
-    
+
 
 ??? example "Image"
 
