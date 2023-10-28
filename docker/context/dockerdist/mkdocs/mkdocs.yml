@@ -65,7 +65,7 @@ extra:
     default: latest
 
 extra_css:
-  - assets/extra.css
+  - assets/stylesheets/extra.css
 
 nav:
   - 'Accueil': 'index.md'

@@ -18,19 +18,30 @@
 
 ### Publier une nouvelle version et définir une version par défaut
 
-Nécessite d'executer les commandes au sein du container *(docker exec)*
+  > **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
 
 Si vous souhaitez publier une nouvelle version de la documentation de votre projet, choisissez un identifiant de version et mettez à jour l'alias défini comme version par défaut avec *(ici, version 0.1, à adapter)*:
 
-```
+```bash
 mike deploy --push --update-aliases 0.1 latest
 ```
 
 Lorsque vous publiez une nouvelle version, mettez toujours à jour l'alias pour qu'il pointe vers la dernière version :
 
-```
+```bash
 mike set-default --push latest
 ```
+
+### Builder une version html pour diffusion
+
+> **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
+
+Lorsque vous avez terminé votre travail d'édition, vous pouvez créer un site statique à partir de vos fichiers Markdown :
+
+```bash
+mkdocs build
+```
+
 
 ### Visualisation (versions livrées)
 
