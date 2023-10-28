@@ -42,7 +42,7 @@
 Si vous souhaitez publier une nouvelle version de la documentation de votre projet, choisissez un identifiant de version
 et mettez à jour l'alias défini comme version par défaut.
 
-    > **Note:** version "0.1" dans l'exemple ci-dessous, à adapter.
+  > **Note:** version "0.1" dans l'exemple ci-dessous, à adapter.
 
 ```bash
 mike deploy --push --update-aliases 0.1 latest
@@ -56,7 +56,7 @@ mike set-default --push latest
 
 ### Builder une version html pour diffusion
 
-> **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
+  > **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
 
 Lorsque vous avez terminé votre travail d'édition, vous pouvez créer un site statique à partir de vos fichiers Markdown :
 
@@ -69,7 +69,7 @@ mkdocs build
 
 - L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les versions livrées, et deployées sur le git, 
 via le port `8001`
-  - **nota**: le port ayant probablement été bindé, à adapter selon la conf docker !
+  > **Note**: le port ayant probablement été bindé, à adapter selon la conf docker !
 
 
 ## Autre
@@ -79,7 +79,8 @@ https://squidfunk.github.io/mkdocs-material/getting-started/
 
 ### docker-compose
 
-**nota**: adapter le `<path>` et les `<port>`
+  > **Note**: adapter le `<path>` et les `<port>`
+
 ```
 version: '3'
 
@@ -107,4 +108,3 @@ https://www.wheelodex.org/entry-points/mkdocs.themes/
 
 ### Plugins
 https://github.com/mkdocs/catalog
-
