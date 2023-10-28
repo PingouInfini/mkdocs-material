@@ -35,4 +35,4 @@
 
 ??? example "Image"
 
-    ![](./assets/img/commun/Danger_Close.jpg){style="height:500px;width:500px"}
+    ![](../assets/img/commun/Danger_Close.jpg){style="height:500px;width:500px"}

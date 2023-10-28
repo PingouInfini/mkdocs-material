@@ -10,6 +10,7 @@ docker_connect() {
   # Vérifier si le fichier commence par "#"
   if [[ $(head -n 1 "$file") == "#"* ]]; then
     # Demander le mot de passe à l'utilisateur
+    # shellcheck disable=SC2162
     read -s -p "Veuillez entrer votre mot de passe pour Docker Hub: " password
     echo
 
@@ -18,6 +19,7 @@ docker_connect() {
 
   else
     # Le fichier ne commence pas par "#", utiliser cat pour lire le contenu
+    # shellcheck disable=SC2002
     cat "$file" | docker login --username=pingouinfinihub --password-stdin
   fi
 }
@@ -32,6 +34,7 @@ fi
 git clone https://github.com/squidfunk/mkdocs-material.git "$build_dir"
 
 # Vérifier si la commande git a réussi
+# shellcheck disable=SC2181
 if [ $? -eq 0 ]; then
     # On recupère la version courante
     version=$(jq -r '.version' "$build_dir"/package.json)
@@ -40,7 +43,6 @@ if [ $? -eq 0 ]; then
     cp -r docker/context/dockerdist/mkdocs/mkdocs.yml "$build_dir"/mkdocs.yml
     cp -r docker/context/dockerdist/mkdocs/.gitignore "$build_dir"/.gitignore
     cp -rL docker/context/dockerdist/mkdocs/content "$build_dir"/content
-    cp README.md docker/context/dockerdist/mkdocs/content/index.md
 
     # modification du dockerfile
     cp -f docker/context/Dockerfile "$build_dir"/Dockerfile

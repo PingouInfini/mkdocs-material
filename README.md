@@ -1,8 +1,26 @@
 # mkdocs-materials
 
+## Index
+
+- [Index](#index)
+- [Actions](#actions)
+  - [Actualisation de la documentation](#actualisation-de-la-documentation)
+  - [Visualisation (version en cours)](#visualisation-version-en-cours)
+  - [Publier une nouvelle version](#publier-une-nouvelle-version)
+  - [Builder une version html pour diffusion](#builder-une-version-html-pour-diffusion)
+  - [Visualisation (released versions)](#visualisation-released-versions)
+- [Autre](#autre)
+  - [Installation docker](#installation-docker)
+  - [Docker-compose](#docker-compose)
+  - [Documentation](#documentation)
+  - [Customisation theme material](#customisation-theme-material)
+  - [Themes](#themes)
+  - [Plugins](#plugins)
+
+
 ## Actions
 
-### Mise à jour
+### Actualisation de la documentation
 - Editer les fichiers `.md` du répertoire `content` *(défini dans le mkdocs.yml: docs_dir: 'content')*
 
 - Rajouter des pages dans la partie `nav` du fichier `mkdocs.yml`
@@ -11,16 +29,20 @@
 
 ### Visualisation (version en cours)
 
-- L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les pages en cours d'écriture dans le répertoire `/docs` du container via le port `8000`
-  - **nota**: le répertoire et le port ayant probablement été bindés, à adapter selon la conf docker !
+- L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les pages en cours d'écriture dans le répertoire
+`/docs` du container via le port `8000`
+  > **Note**: le répertoire et le port ayant probablement été bindés, à adapter selon la conf docker !
 
 - Les modifications entrainent un rechargement automatique de la page.
 
-### Publier une nouvelle version et définir une version par défaut
+### Publier une nouvelle version
 
   > **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
 
-Si vous souhaitez publier une nouvelle version de la documentation de votre projet, choisissez un identifiant de version et mettez à jour l'alias défini comme version par défaut avec *(ici, version 0.1, à adapter)*:
+Si vous souhaitez publier une nouvelle version de la documentation de votre projet, choisissez un identifiant de version
+et mettez à jour l'alias défini comme version par défaut.
+
+    > **Note:** version "0.1" dans l'exemple ci-dessous, à adapter.
 
 ```bash
 mike deploy --push --update-aliases 0.1 latest
@@ -43,9 +65,10 @@ mkdocs build
 ```
 
 
-### Visualisation (versions livrées)
+### Visualisation (released versions)
 
-- L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les versions livrées, et deployées sur le git, via le port `8001`
+- L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les versions livrées, et deployées sur le git, 
+via le port `8001`
   - **nota**: le port ayant probablement été bindé, à adapter selon la conf docker !
 
 
