@@ -40,6 +40,7 @@ if [ $? -eq 0 ]; then
     cp -r docker/context/dockerdist/mkdocs/mkdocs.yml "$build_dir"/mkdocs.yml
     cp -r docker/context/dockerdist/mkdocs/.gitignore "$build_dir"/.gitignore
     cp -rL docker/context/dockerdist/mkdocs/content "$build_dir"/content
+    cp README.md docker/context/dockerdist/mkdocs/content/index.md
 
     # modification du dockerfile
     cp -f docker/context/Dockerfile "$build_dir"/Dockerfile
