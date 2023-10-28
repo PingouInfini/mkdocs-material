@@ -75,7 +75,7 @@ via le port `8001`
 ## Autre
 
 ### Installation docker
-https://squidfunk.github.io/mkdocs-material/getting-started/  
+[https://squidfunk.github.io/mkdocs-material/getting-started/](https://squidfunk.github.io/mkdocs-material/getting-started/)
 
 ### docker-compose
 
@@ -97,14 +97,14 @@ services:
 ```
 
 ### Documentation
-https://www.mkdocs.org/getting-started/
+[https://www.mkdocs.org/getting-started/](https://www.mkdocs.org/getting-started/)
 
 ### Customisation theme material
-https://squidfunk.github.io/mkdocs-material/setup/
+[https://squidfunk.github.io/mkdocs-material/setup/](https://squidfunk.github.io/mkdocs-material/setup/)
 
 ### Themes
-https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes
-https://www.wheelodex.org/entry-points/mkdocs.themes/
+[https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes](https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes)  
+[https://www.wheelodex.org/entry-points/mkdocs.themes/](https://www.wheelodex.org/entry-points/mkdocs.themes/)
 
 ### Plugins
-https://github.com/mkdocs/catalog
+[https://github.com/mkdocs/catalog](https://github.com/mkdocs/catalog)
