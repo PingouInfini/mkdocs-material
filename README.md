@@ -11,7 +11,7 @@
 
 ### Visualisation (version en cours)
 
-- L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les pages en cours d'écriture dans le répertoire `/docs` du container via le port 8000
+- L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les pages en cours d'écriture dans le répertoire `/docs` du container via le port `8000`
   - **nota**: le répertoire et le port ayant probablement été bindés, à adapter selon la conf docker !
 
 - Les modifications entrainent un rechargement automatique de la page.
@@ -45,7 +45,7 @@ mkdocs build
 
 ### Visualisation (versions livrées)
 
-- L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les versions livrées, et deployées sur le git, via le port 8001
+- L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les versions livrées, et deployées sur le git, via le port `8001`
   - **nota**: le port ayant probablement été bindé, à adapter selon la conf docker !
 
 
@@ -56,7 +56,7 @@ https://squidfunk.github.io/mkdocs-material/getting-started/
 
 ### docker-compose
 
-**nota**: adapter le `<path>`
+**nota**: adapter le `<path>` et les `<port>`
 ```
 version: '3'
 

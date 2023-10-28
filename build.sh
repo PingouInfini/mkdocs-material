@@ -45,6 +45,9 @@ if [ $? -eq 0 ]; then
     # modification du dockerfile
     cp -f docker/context/Dockerfile "$build_dir"/Dockerfile
 
+    # modification de l'iframe-worker en local
+    sed -i 's#https://unpkg.com/iframe-worker/shim#assets/javascripts/iframe-worker.js#g' ./build/material/plugins/offline/plugin.py
+
     # récupération du supervisord
     cp -r docker/context/dockerdist/supervisord "$build_dir"/supervisord
 else
