@@ -9,6 +9,7 @@
   - [Publier une nouvelle version](#publier-une-nouvelle-version)
   - [Builder une version html pour diffusion](#builder-une-version-html-pour-diffusion)
   - [Visualisation (released versions)](#visualisation-released-versions)
+  - [Export au format PDF](#export-au-format-pdf)
 - [Autre](#autre)
   - [Installation docker](#installation-docker)
   - [Docker-compose](#docker-compose)
@@ -29,7 +30,7 @@
 
 ### Visualisation (version en cours)
 
-- L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les pages en cours d'écriture dans le répertoire
+- L'image docker `pingouinfinihub/mkdocs-material` permet de **visualiser les pages en cours d'écriture** dans le répertoire
 `/docs` du container via le port `8000`
   > **Note**: le répertoire et le port ayant probablement été bindés, à adapter selon la conf docker !
 
@@ -39,7 +40,7 @@
 
   > **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
 
-Si vous souhaitez publier une nouvelle version de la documentation de votre projet, choisissez un identifiant de version
+Si vous souhaitez **publier une nouvelle version** de la documentation de votre projet, choisissez un identifiant de version
 et mettez à jour l'alias défini comme version par défaut.
 
   > **Note:** version "0.1" dans l'exemple ci-dessous, à adapter.
@@ -58,7 +59,7 @@ mike set-default --push latest
 
   > **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
 
-Lorsque vous avez terminé votre travail d'édition, vous pouvez créer un site statique à partir de vos fichiers Markdown :
+Lorsque vous avez terminé votre travail d'édition, vous pouvez créer un **site statique** à partir de vos fichiers Markdown :
 
 ```bash
 mkdocs build
@@ -71,6 +72,18 @@ mkdocs build
 via le port `8001`
   > **Note**: le port ayant probablement été bindé, à adapter selon la conf docker !
 
+### Export au format PDF
+
+> **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
+
+Pour **exporter la documentation au format pdf**, vérifier les variables dans le `mkdocs.yml`, à partir de ce [readme](https://github.com/zhaoterryy/mkdocs-pdf-export-plugin)
+
+```bash
+ENABLE_PDF_EXPORT=1 mkdocs build
+```
+
+Le pdf est exporté selon les variables `site_name` et `combined_output_path`, définis dans le `mkdocs.yml`.  
+*Exemple: /docs/Manuel d'exemple/pdf/exported-site.pdf*
 
 ## Autre
 

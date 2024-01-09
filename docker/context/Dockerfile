@@ -50,6 +50,23 @@ RUN \
     jpeg-dev \
     openssh \
     zlib-dev \
+    # Libs for MkDocs PDF Export Plugin
+    py3-pip \
+    py3-pillow \
+    py3-cffi \
+    py3-brotli \
+    gcc \
+    musl-dev \
+    python3-dev \
+    pango \
+    fontconfig \
+    ttf-freefont \
+    font-noto \
+    terminus-font \
+&& \
+    fc-cache -f \
+&& \
+    fc-list | sort \
 && \
   apk add --no-cache --virtual .build \
     gcc \
@@ -88,6 +105,10 @@ RUN \
 
 # Install 'mike' with pip
 RUN pip install mike
+RUN pip install weasyprint
+RUN weasyprint --info
+RUN pip install mkdocs-pdf-export-plugin
+
 
 # Trust directory, required for git >= 2.35.2
 RUN git config --global --add safe.directory /docs &&\

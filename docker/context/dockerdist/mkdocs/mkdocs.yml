@@ -57,7 +57,12 @@ plugins:
   - offline
   - minify:
       minify_html: true
-
+  - pdf-export:
+      verbose: true
+      media_type: print
+      combined: true
+      combined_output_path: pdf/exported-site.pdf
+      enabled_if_env: ENABLE_PDF_EXPORT
 extra:
   generator: false
   version:
