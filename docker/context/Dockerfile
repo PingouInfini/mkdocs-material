@@ -105,10 +105,14 @@ RUN \
 
 # Install 'mike' with pip
 RUN pip install mike
+
+# Install 'mkdocs-pdf-export-plugin' with pip
 RUN pip install weasyprint
 RUN weasyprint --info
 RUN pip install mkdocs-pdf-export-plugin
 
+# Install 'mkdocs-pdf-export-plugin' with pip
+RUN pip install mkdocs-glightbox
 
 # Trust directory, required for git >= 2.35.2
 RUN git config --global --add safe.directory /docs &&\

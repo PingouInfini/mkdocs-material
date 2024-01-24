@@ -63,6 +63,10 @@ plugins:
       combined: true
       combined_output_path: pdf/exported-site.pdf
       enabled_if_env: ENABLE_PDF_EXPORT
+  - glightbox:
+      skip_classes:
+        - skip-lightbox
+
 extra:
   generator: false
   version:
@@ -78,4 +82,5 @@ nav:
       - 'Lorem': 'general/page1.md'
       - 'Ipsum': 'general/page2.md'
       - 'Hodor': 'general/page3.md'
+  - 'Images': 'general/images.md'
   - 'Hodor': 'hodor/page3.md' #reuse de la page3 [link] page3.md -> ../general/page3.md
