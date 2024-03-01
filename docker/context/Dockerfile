@@ -122,6 +122,8 @@ RUN git config --global --add safe.directory /docs &&\
 RUN git config --global user.name "PingouInfini"
 RUN git config --global user.email "pingouin@banquise.org"
 
+COPY scripts/ /scripts
+
 # Set working directory
 WORKDIR /docs
 RUN git init
@@ -131,16 +133,20 @@ COPY mkdocs.yml .
 COPY .gitignore .
 COPY content/ content
 
+run chmod +x /scripts/builder-assistant.sh
+
 # Publish 1st version
 RUN sed -i 's/mkdocs-materials/mkdocs-materials v0.1/g' content/index.md
 RUN git add .
 RUN git commit -am "init commit"
+RUN git tag -a 0.1 -m "0.1"
 RUN mike deploy --update-aliases 0.1 latest
 
 # Publish 2nd version
 RUN sed -i 's/v0.1/v0.2/g' content/index.md
 RUN git add .
 RUN git commit -am "commit 2nd version"
+RUN git tag -a 0.2 -m "0.2"
 RUN mike deploy --update-aliases 0.2 latest
 
 # Set default

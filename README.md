@@ -3,6 +3,7 @@
 ## Index
 
 - [Index](#index)
+- [Quick start](#quick-start)
 - [Actions](#actions)
   - [Actualisation de la documentation](#actualisation-de-la-documentation)
   - [Visualisation (version en cours)](#visualisation-version-en-cours)
@@ -18,6 +19,25 @@
   - [Themes](#themes)
   - [Plugins](#plugins)
 
+
+## Quick start
+
+> **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
+ 
+Pour simplifier la gestion des actions, un script est mis en place dans le répertoire `script`
+```commandline
+cd /scripts
+./builder-assistant.sh
+```
+
+Ce qui affiche le menu suivant (et laissez-vous guidez):
+```
+Menu :
+1) Builder une nouvelle version
+2) Générer la documentation au format PDF
+3) Quitter
+Veuillez choisir une option : 
+```
 
 ## Actions
 
