@@ -39,7 +39,7 @@ theme:
         icon: material/toggle-switch-off-outline
         name: Passer en mode lumineux
 
-copyright: 'PingouInfini • Copyright &copy; 2023'
+copyright: 'PingouInfini • Copyright &copy; 2023-2024'
 
 markdown_extensions:
   - attr_list
@@ -66,6 +66,13 @@ plugins:
   - glightbox:
       skip_classes:
         - skip-lightbox
+  - mkdocs-video:
+      is_video: True
+      video_loop: False     #require 'is_video: True'
+      video_muted: True     #require 'is_video: True'
+      video_controls: True  #require 'is_video: True'
+      video_autoplay: False  #require 'is_video: True'
+  - include-markdown
 
 extra:
   generator: false
@@ -83,4 +90,8 @@ nav:
       - 'Ipsum': 'general/page2.md'
       - 'Hodor': 'general/page3.md'
   - 'Images': 'general/images.md'
-  - 'Hodor': 'hodor/page3.md' #reuse de la page3 [link] page3.md -> ../general/page3.md
+  - 'Video': 'general/video.md'
+  - 'Reuse':
+      - 'Page partielle': 'reuse/page1bis.md'
+      - 'Page complète': 'reuse/page3bis.md'
+

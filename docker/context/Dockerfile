@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
+# Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 # Updated by PingouInfini
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,7 +19,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-FROM python:3.11-alpine3.18
+FROM python:3.11-alpine3.19
 
 # Build-time flags
 ARG WITH_PLUGINS=true
@@ -49,6 +49,7 @@ RUN \
     git-fast-import \
     jpeg-dev \
     openssh \
+    tini \
     zlib-dev \
     # Libs for MkDocs PDF Export Plugin
     py3-pip \
@@ -113,6 +114,12 @@ RUN pip install mkdocs-pdf-export-plugin
 
 # Install 'mkdocs-glightbox' with pip
 RUN pip install mkdocs-glightbox
+
+# Install 'mkdocs-video' with pip
+RUN pip install mkdocs-video
+
+# Install 'mkdocs-include-markdown-plugin' with pip
+RUN pip install mkdocs-include-markdown-plugin
 
 # Trust directory, required for git >= 2.35.2
 RUN git config --global --add safe.directory /docs &&\

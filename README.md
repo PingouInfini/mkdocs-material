@@ -46,7 +46,13 @@ Veuillez choisir une option :
 
 - Rajouter des pages dans la partie `nav` du fichier `mkdocs.yml`
 
-- Simplifier la maintenance en appelant la même page à 2 endroits différents en créant des similink
+- Simplifier la maintenance en appelant une page existante à l'aide du plugin 'include-markdown'  
+    `{%`  
+        `include-markdown 'general/pageXXX.md'`  
+        `start="<!--balise-name-start-->"`  
+        `end="<!--balise-name-end-->"`    
+    `%}` 
+
 
 ### Visualisation (version en cours)
 

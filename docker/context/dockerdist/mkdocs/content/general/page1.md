@@ -4,6 +4,7 @@
     nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
     massa, nec semper lorem quam in massa.
 
+<!--tip-start-->
 
 !!! tip "Conseil"
 
@@ -14,6 +15,7 @@
 
     bah c'est plus compliqué...
 
+<!--tip-end-->
 
 !!! question "comment faire?"
 
