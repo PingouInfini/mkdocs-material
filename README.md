@@ -135,6 +135,9 @@ services:
     restart: always
 ```
 
+### Changelog
+[https://squidfunk.github.io/mkdocs-material/changelog/](https://squidfunk.github.io/mkdocs-material/changelog/)
+
 ### Documentation
 [https://www.mkdocs.org/getting-started/](https://www.mkdocs.org/getting-started/)
 

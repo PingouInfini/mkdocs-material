@@ -24,6 +24,8 @@ docker_connect() {
   fi
 }
 
+docker_connect
+
 # Vérifier si le répertoire de destination existe
 if [ -d "$build_dir" ]; then
     echo "Le répertoire de destination existe déjà. Suppression en cours..."
