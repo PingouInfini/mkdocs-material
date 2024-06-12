@@ -4,6 +4,11 @@
 build_dir="build"
 
 docker_connect() {
+  # Vérifier si l'utilisateur est déjà connecté à Docker
+  if docker info >/dev/null 2>&1; then
+    return
+  fi
+  
   # Nom du fichier
   file="./docker/docker_password.txt"
 
