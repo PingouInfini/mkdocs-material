@@ -57,6 +57,7 @@ RUN \
     py3-cffi \
     py3-brotli \
     gcc \
+    g++ \
     musl-dev \
     python3-dev \
     pango \
