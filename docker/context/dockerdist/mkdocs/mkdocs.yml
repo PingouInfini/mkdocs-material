@@ -15,12 +15,13 @@ theme:
   font: false
 
   features:
-    - navigation.sections
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.top
     - navigation.footer
+    - navigation.instant
     - content.tabs.link
+    - content.code.copy
 
   palette:
       # Palette toggle for light mode
