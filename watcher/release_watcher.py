@@ -59,7 +59,8 @@ def handle_new_release():
 
     # 2. Cloner le dépôt dans "workdir"
     logging.debug(f"Clonage du dépôt {REPO_URL} dans {WORKDIR}")
-    subprocess.run(['git', 'clone', REPO_URL, WORKDIR], check=True)
+    subprocess.run(['git', 'clone', REPO_URL, WORKDIR], check=True, stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
 
     # 3. Remplacer le contenu de "workdir/docker/docker_password.txt" par la valeur de DOCKER_PASSWORD
     docker_password_file = os.path.join(WORKDIR, 'docker', 'docker_password.txt')
@@ -77,7 +78,7 @@ def handle_new_release():
     try:
         build_script_path = './build.sh'
         if os.path.exists(build_script_path) and os.access(build_script_path, os.X_OK):
-            logging.info(f"Lancement du script {build_script_path}")
+            logging.debug(f"Lancement du script {build_script_path}")
             with open('../build.log', 'w') as log_file:
                 # Exécute le script et redirige stdout et stderr vers le fichier
                 subprocess.run(['sh', build_script_path], check=True, stdout=log_file, stderr=log_file)
@@ -101,8 +102,6 @@ def main():
             last_release = load_last_release()
 
             if latest_release != last_release:
-                logging.info("")
-                logging.info("")
                 logging.info("")
                 logging.info(f"### Nouvelle release détectée : {latest_release}")
                 handle_new_release()  # Effectuer les actions pour la nouvelle release
