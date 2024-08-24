@@ -5,10 +5,20 @@ build_dir="build"
 
 docker_connect() {
   # Vérifier si l'utilisateur est déjà connecté à Docker
-  if docker info >/dev/null 2>&1; then
-    return
+
+  # Chemin du fichier de configuration Docker
+  DOCKER_CONFIG_FILE="$HOME/.docker/config.json"
+
+  # Vérification de l'existence du fichier de configuration
+  if [ -f "$DOCKER_CONFIG_FILE" ]; then
+      # Vérification des informations de login dans le fichier config.json
+      AUTH_COUNT=$(jq '.auths | length' "$DOCKER_CONFIG_FILE")
+
+      if [ "$AUTH_COUNT" -gt 0 ]; then
+          return
+      fi
   fi
-  
+
   # Nom du fichier
   file="./docker/docker_password.txt"
 
