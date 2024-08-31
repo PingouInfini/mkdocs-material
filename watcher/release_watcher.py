@@ -9,8 +9,8 @@ import requests
 
 # Configuration
 GITHUB_API_URL = "https://api.github.com/repos/squidfunk/mkdocs-material/releases/latest"
-CHECK_INTERVAL = 3600  # Vérifier toutes les heures
-LAST_RELEASE_FILE = "last_release.txt"  # Fichier pour stocker la dernière release connue
+CHECK_INTERVAL = 3600 * int(os.environ.get('CHECK_INTERVAL', 1))  # Vérifier toutes les heures
+LAST_RELEASE_FILE = "/release/last_release.txt"  # Fichier pour stocker la dernière release connue
 WORKDIR = "workdir"
 BUILD = "build"
 REPO_URL = "https://github.com/PingouInfini/mkdocs-material"
@@ -96,6 +96,7 @@ def handle_new_release():
 
 
 def main():
+    logging.info("Démarrage - vérification toutes les " + str(os.environ.get('CHECK_INTERVAL', 1)) + " heures")
     while True:
         try:
             latest_release = get_latest_release()
