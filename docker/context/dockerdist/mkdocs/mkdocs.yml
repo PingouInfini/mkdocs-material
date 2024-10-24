@@ -1,4 +1,4 @@
-site_name: Manuel d'exemple
+site_name: Example manual
 site_description: Manuel d'exemple embarqué par l'image docker
 site_dir: Manuel d'exemple
 site_url: ''
@@ -56,10 +56,11 @@ markdown_extensions:
 plugins:
   - search
   - offline
+  - include-markdown
   - minify:
       minify_html: true
   - pdf-export:
-      verbose: true
+      verbose: false
       media_type: print
       combined: true
       combined_output_path: pdf/exported-site.pdf
@@ -73,7 +74,6 @@ plugins:
       video_muted: True     #require 'is_video: True'
       video_controls: True  #require 'is_video: True'
       video_autoplay: False  #require 'is_video: True'
-  - include-markdown
 
 extra:
   generator: false

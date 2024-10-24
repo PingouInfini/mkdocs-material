@@ -130,7 +130,16 @@ RUN git config --global --add safe.directory /docs &&\
 RUN git config --global user.name "PingouInfini"
 RUN git config --global user.email "pingouin@banquise.org"
 
+# Install Node.js and npm
+RUN apk add --no-cache nodejs npm
+
+# Copy builder-assistant and dependencies
 COPY scripts/ /scripts
+COPY scripts/lib/ /scripts/lib
+
+# Set working directory
+WORKDIR /scripts/lib
+RUN npm install
 
 # Set working directory
 WORKDIR /docs
@@ -141,7 +150,7 @@ COPY mkdocs.yml .
 COPY .gitignore .
 COPY content/ content
 
-run chmod +x /scripts/builder-assistant.sh
+RUN chmod +x /scripts/builder-assistant.sh
 
 # Publish 1st version
 RUN sed -i 's/mkdocs-materials/mkdocs-materials v0.1/g' content/index.md
