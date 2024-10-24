@@ -22,21 +22,20 @@
 
 ## Quick start
 
-> **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
+> ⚠️ **Note:** Nécessite d'executer les commandes au sein du container :  
+>   `docker exec -it <container_name> ash`
  
-Pour simplifier la gestion des actions, un script est mis en place dans le répertoire `script`
+Pour simplifier la gestion des actions, un script est mis en place dans le répertoire `/scripts`
 ```commandline
-cd /scripts
-./builder-assistant.sh
+/scripts/builder-assistant.sh
 ```
 
 Ce qui affiche le menu suivant (et laissez-vous guidez):
 ```
-Menu :
-1) Builder une nouvelle version
-2) Générer la documentation au format PDF
-3) Quitter
-Veuillez choisir une option : 
+? Action : (Use arrow keys)
+❯ Builder une nouvelle version
+  Generer la documentation au format PDF
+  Quitter 
 ```
 
 ## Actions
@@ -64,12 +63,17 @@ Veuillez choisir une option :
 
 ### Publier une nouvelle version
 
-  > **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
+  > 💡 **Astuce** : Se référer au §[Quick start](#quick-start) pour se simplifier la vie !
+
+---
+
+  > ⚠️ **Note:** Nécessite d'executer les commandes au sein du container :  
+  >   `docker exec -it <container_name> ash`
 
 Si vous souhaitez **publier une nouvelle version** de la documentation de votre projet, choisissez un identifiant de version
 et mettez à jour l'alias défini comme version par défaut.
 
-  > **Note:** version "0.1" dans l'exemple ci-dessous, à adapter.
+  > ⚠️  **Note:** version `0.1` dans l'exemple ci-dessous, à adapter.
 
 ```bash
 mike deploy --push --update-aliases 0.1 latest
@@ -83,7 +87,11 @@ mike set-default --push latest
 
 ### Builder une version html pour diffusion
 
-  > **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
+> 💡 **Astuce** : Se référer au §[Quick start](#quick-start) pour se simplifier la vie !
+
+---
+  > ⚠️ **Note:** Nécessite d'executer les commandes au sein du container :  
+  >   `docker exec -it <container_name> ash`
 
 Lorsque vous avez terminé votre travail d'édition, vous pouvez créer un **site statique** à partir de vos fichiers Markdown :
 
@@ -96,11 +104,16 @@ mkdocs build
 
 - L'image docker `pingouinfinihub/mkdocs-material` permet de visualiser les versions livrées, et deployées sur le git, 
 via le port `8001`
-  > **Note**: le port ayant probablement été bindé, à adapter selon la conf docker !
+  > ⚠️ **Note**: le port ayant probablement été bindé, à adapter selon la conf docker !
 
 ### Export au format PDF
 
-> **Note:** Nécessite d'executer les commandes au sein du container *(docker exec)*
+> 💡 **Astuce** : Se référer au §[Quick start](#quick-start) pour se simplifier la vie !
+
+---
+
+> ⚠️ **Note:** Nécessite d'executer les commandes au sein du container :  
+>   `docker exec -it <container_name> ash`
 
 Pour **exporter la documentation au format pdf**, vérifier les variables dans le `mkdocs.yml`, à partir de ce [readme](https://github.com/zhaoterryy/mkdocs-pdf-export-plugin)
 
@@ -118,7 +131,7 @@ Le pdf est exporté selon les variables `site_name` et `combined_output_path`, d
 
 ### docker-compose
 
-  > **Note**: adapter le `<path>` et les `<port>`
+  > ⚠️ **Note**: adapter le `<path>` et les `<port>`
 
 ```
 version: '3'
@@ -134,6 +147,9 @@ services:
       - <path>/docker/appdata/mkdocs:/docs
     restart: always
 ```
+
+### Référence Github `squidfunk/mkdocs-material`
+[https://github.com/squidfunk/mkdocs-material](https://github.com/squidfunk/mkdocs-material)
 
 ### Changelog
 [https://squidfunk.github.io/mkdocs-material/changelog/](https://squidfunk.github.io/mkdocs-material/changelog/)
