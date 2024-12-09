@@ -86,9 +86,9 @@ function builderNouvelleVersion(version, withTag) {
     console.log(`Choix sélectionné : 'Builder version v${version}' -> ${tagStatus} tag`);
 
     if (withTag) {
-        execSync(`git tag -a v${version} -m "v${version}"`);
-        execSync(`mike deploy --push --update-aliases v${version} latest`);
-        execSync(`mike set-default --push latest`);
+        execSync(`git tag -a ${version} -m "v${version}"`, { cwd: '/docs' });
+        execSync(`mike deploy --push --update-aliases v${version} latest`, { cwd: '/docs' });
+        execSync(`mike set-default --push latest`, { cwd: '/docs' });
     }
 
     mkdocsBuild();
@@ -98,7 +98,7 @@ function builderNouvelleVersion(version, withTag) {
 // Fonction pour générer la documentation en PDF
 function generateDocPDF() {
     console.log("Génération de la documentation au format PDF...");
-    execSync('cd /docs && ENABLE_PDF_EXPORT=1 mkdocs build', { stdio: 'inherit' });
+    execSync('ENABLE_PDF_EXPORT=1 mkdocs build', { stdio: 'inherit', cwd: '/docs' });
 
     // Charger et parser mkdocs.yml pour récupérer combined_output_path du plugin pdf-export
     const { site_dir = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
@@ -109,20 +109,29 @@ function generateDocPDF() {
 // Fonction pour builder avec mkdocs
 function mkdocsBuild() {
     console.log("### mkdocs build");
-    execSync('mkdocs build', { stdio: 'inherit' });
+    execSync('mkdocs build', { stdio: 'inherit', cwd: '/docs' });
 }
 
 // Renommer le dossier `site_dir`
 function renameSiteDir(version) {
     const siteDir = getSiteDir();
+    const destinationDir = `${siteDir} v${version}`;
+
+    if (fs.existsSync(destinationDir)) {
+        console.log("Le répertoire ${destinationDir} existe déjà. Suppression...");
+        fs.rmSync(destinationDir, { recursive: true, force: true });
+    }
+
     if (fs.existsSync(siteDir)) {
-        fs.renameSync(siteDir, `${siteDir} v${version}`);
+        fs.renameSync(siteDir, destinationDir);
+        console.log("Le répertoire ${siteDir} a été renommé en ${destinationDir}");
     }
 }
 
+
 // Obtenir le chemin de `site_dir` depuis mkdocs.yml
 function getSiteDir() {
-    const mkdocsYml = fs.readFileSync('mkdocs.yml', 'utf8');
+    const mkdocsYml = fs.readFileSync('/docs/mkdocs.yml', 'utf8');
     const match = mkdocsYml.match(/site_dir: (.+)/);
     return match ? match[1].trim() : 'site';
 }
@@ -131,7 +140,7 @@ function getSiteDir() {
 function computeNextTag() {
     let latestTag;
     try {
-        latestTag = execSync('git describe --tags --abbrev=0', { encoding: 'utf8' }).trim();
+        latestTag = execSync('git describe --tags --abbrev=0', { encoding: 'utf8', cwd: '/docs' }).trim();
     } catch (err) {
         latestTag = '0.0';
     }
