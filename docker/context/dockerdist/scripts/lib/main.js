@@ -1,6 +1,7 @@
 const inquirer = require('@inquirer/prompts');
 const { execSync } = require('child_process');
 const fs = require('fs');
+const path = require('path');
 const yaml = require('js-yaml');
 
 // Menu principal
@@ -103,8 +104,31 @@ function generateDocPDF() {
     // Charger et parser mkdocs.yml pour récupérer combined_output_path du plugin pdf-export
     const { site_dir = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
     const combinedOutputPath = plugins.find(p => p['pdf-export'])['pdf-export'].combined_output_path;
-    console.log(`\n==> Le PDF a été généré dans /docs/${site_dir}/${combinedOutputPath}`);
+
+    // Déplacer le fichier PDF vers /docs/${combinedOutputPath}
+    const oldPath = `/docs/${site_dir}/${combinedOutputPath}`;
+    const newPath = `/docs/${combinedOutputPath}`;
+
+    // Créer les répertoires parents pour newPath si nécessaire
+    const newDir = path.dirname(newPath); // Récupérer le chemin du répertoire parent
+    fs.mkdirSync(newDir, { recursive: true });
+
+    // Vider le répertoire newDir s'il contient déjà des fichiers
+    if (fs.existsSync(newDir)) {
+        fs.readdirSync(newDir).forEach((file) => {
+            const filePath = path.join(newDir, file);
+            fs.rmSync(filePath, { recursive: true, force: true });
+        });
+    }
+
+    // Déplacer le fichier PDF
+    fs.renameSync(oldPath, newPath);
+    console.log(`\n==> Le PDF a été généré dans /docs/${combinedOutputPath}`);
+
+    // Supprimer le répertoire site_dir
+    fs.rmSync(`/docs/${site_dir}`, { recursive: true, force: true });
 }
+
 
 // Fonction pour builder avec mkdocs
 function mkdocsBuild() {
