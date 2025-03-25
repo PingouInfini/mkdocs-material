@@ -132,8 +132,8 @@ function builderNouvelleVersion(version, withTag) {
     generateDefaultPDF(version);
 
     // Déplacement du default pdf généré dans le site
-    const { site_name = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
-    copyFile('/docs/content/assets/pdf/site.pdf', `/docs/${site_name} v${version}/assets/pdf/site.pdf`);
+    const { site_dir = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
+    copyFile('/docs/content/assets/pdf/site.pdf', `/docs/${site_dir} v${version}/assets/pdf/site.pdf`);
 }
 
 function getCurrentDateTime() {
@@ -209,7 +209,7 @@ async function generateDocPDF() {
             break;
         case 'back':
             showMainMenu();
-            break;
+            return;
         case 'quit':
             console.log("Au revoir!");
             process.exit(0);
@@ -219,15 +219,16 @@ async function generateDocPDF() {
     generateDefaultPDF(version);
 
     console.log("Génération de la documentation au format PDF...");
-    const { site_name = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
-    buildPDF(`/docs/${site_name} v${version}.pdf`, version);
+    const { site_dir = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
+    const pdfPath = `/docs/${site_dir} v${version}.pdf`;
+    buildPDF(pdfPath, version);
     console.log(`\n==> Le PDF a été généré dans "${pdfPath}"`);
 }
 
 async function buildPDF(pdfPath, version) {
-    const { site_name = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
+    const { site_dir = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
     const date = getCurrentDateTime();
-    execSync(`node export_to_pdf http://localhost:8000/print_page.html "${pdfPath}" "${site_name}" "${version}" "${date}"`, { stdio: 'inherit', cwd: '/scripts/lib' });
+    execSync(`node export_to_pdf http://localhost:8000/print_page.html "${pdfPath}" "${site_dir}" "${version}" "${date}"`, { stdio: 'inherit', cwd: '/scripts/lib' });
 }
 
 // Fonction pour builder avec mkdocs
@@ -244,7 +245,7 @@ function generateStandaloneHtml() {
     const currentTag = getCurrentTag();
 
     const htmlIndexPath = `/docs/${site_dir}/print_page.html`;
-    const htmlStdlnOutPath = `/docs/${site_dir}_${currentTag}_single-page.html`;
+    const htmlStdlnOutPath = `/docs/${site_dir} v${currentTag}.single-page.html`;
     execSync(`htmlark "${htmlIndexPath}" -o "${htmlStdlnOutPath}"`, { stdio: 'inherit', cwd: '/docs' });
 
     // Supprimer le répertoire site_dir

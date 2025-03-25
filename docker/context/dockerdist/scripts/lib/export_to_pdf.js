@@ -30,7 +30,6 @@ footerHtml = `
      <span class="pageNumber"></span> / <span class="totalPages"></span>
  </div>`;
 
-
 (async() => {
     const browser = await puppeteer.launch({
         headless: true,
@@ -39,7 +38,19 @@ footerHtml = `
     });
 
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2' });
+
+    // Bloquer les vidéos pour éviter les timeouts
+    await page.setRequestInterception(true);
+    page.on('request', (request) => {
+        if (request.resourceType() === 'media') {
+            request.abort(); // Bloquer les ressources vidéo
+        } else {
+            request.continue();
+        }
+    });
+
+    // Augmenter le délai d'attente à 60 secondes
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 
     // Supprimer les liens cliquables derrière les images
     await page.evaluate(() => {
