@@ -40,7 +40,7 @@ theme:
         icon: material/toggle-switch-off-outline
         name: Passer en mode lumineux
 
-copyright: 'PingouInfini • Copyright &copy; 2023-2024'
+copyright: 'PingouInfini • Copyright &copy; 2023-2025'
 
 markdown_extensions:
   - attr_list
@@ -59,12 +59,6 @@ plugins:
   - include-markdown
   - minify:
       minify_html: true
-  - pdf-export:
-      verbose: false
-      media_type: print
-      combined: true
-      combined_output_path: pdf/exported-site.pdf
-      enabled_if_env: ENABLE_PDF_EXPORT
   - glightbox:
       skip_classes:
         - skip-lightbox
@@ -74,6 +68,7 @@ plugins:
       video_muted: True     #require 'is_video: True'
       video_controls: True  #require 'is_video: True'
       video_autoplay: False  #require 'is_video: True'
+  - print-site
 
 extra:
   generator: false

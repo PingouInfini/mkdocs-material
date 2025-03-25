@@ -98,35 +98,14 @@ function builderNouvelleVersion(version, withTag) {
 
 // Fonction pour générer la documentation en PDF
 function generateDocPDF() {
+	const { site_name = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
+	const currentTag = getCurrentTag();
+
     console.log("Génération de la documentation au format PDF...");
-    execSync('ENABLE_PDF_EXPORT=1 mkdocs build', { stdio: 'inherit', cwd: '/docs' });
+	const pdfPath = `/docs/${site_name}_${currentTag}.pdf`;
+    execSync(`node export_to_pdf http://localhost:8000/print_page.html "${pdfPath}" "${site_name}"`, { stdio: 'inherit', cwd: '/scripts/lib' });
 
-    // Charger et parser mkdocs.yml pour récupérer combined_output_path du plugin pdf-export
-    const { site_dir = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
-    const combinedOutputPath = plugins.find(p => p['pdf-export'])['pdf-export'].combined_output_path;
-
-    // Déplacer le fichier PDF vers /docs/${combinedOutputPath}
-    const oldPath = `/docs/${site_dir}/${combinedOutputPath}`;
-    const newPath = `/docs/${combinedOutputPath}`;
-
-    // Créer les répertoires parents pour newPath si nécessaire
-    const newDir = path.dirname(newPath); // Récupérer le chemin du répertoire parent
-    fs.mkdirSync(newDir, { recursive: true });
-
-    // Vider le répertoire newDir s'il contient déjà des fichiers
-    if (fs.existsSync(newDir)) {
-        fs.readdirSync(newDir).forEach((file) => {
-            const filePath = path.join(newDir, file);
-            fs.rmSync(filePath, { recursive: true, force: true });
-        });
-    }
-
-    // Déplacer le fichier PDF
-    fs.renameSync(oldPath, newPath);
-    console.log(`\n==> Le PDF a été généré dans /docs/${combinedOutputPath}`);
-
-    // Supprimer le répertoire site_dir
-    fs.rmSync(`/docs/${site_dir}`, { recursive: true, force: true });
+    console.log(`\n==> Le PDF a été généré dans "${pdfPath}"`);
 }
 
 
@@ -160,14 +139,20 @@ function getSiteDir() {
     return match ? match[1].trim() : 'site';
 }
 
+// Fonction pour récupérer la version actuelle
+function getCurrentTag() {
+	let currentTag;
+    try {
+        currentTag = execSync('git describe --tags --abbrev=0', { encoding: 'utf8', cwd: '/docs' }).trim();
+    } catch (err) {
+        currentTag = '0.0';
+    }
+	return currentTag;
+}
+
 // Fonction pour calculer la prochaine version
 function computeNextTag() {
-    let latestTag;
-    try {
-        latestTag = execSync('git describe --tags --abbrev=0', { encoding: 'utf8', cwd: '/docs' }).trim();
-    } catch (err) {
-        latestTag = '0.0';
-    }
+    const latestTag = getCurrentTag();
 
     const [major, minor] = latestTag.split('.').map(Number);
     const futureMinorVersion = `${major}.${minor + 1}`;

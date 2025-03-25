@@ -105,13 +105,28 @@ RUN \
     -path "*/__pycache__/*" \
     -exec rm -f {} \;
 
+# Installer les dépendances pour Chromium
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    mesa-gl \
+    udev \
+    libc6-compat
+
+# Définir l'emplacement du cache Puppeteer pour Chromium
+ENV PUPPETEER_CACHE_DIR=/root/.cache/puppeteer
+
 # Install 'mike' with pip
 RUN pip install mike
 
-# Install 'mkdocs-pdf-export-plugin' with pip
+# Install 'mkdocs-print-site-plugin' with pip
 RUN pip install weasyprint
 RUN weasyprint --info
-RUN pip install mkdocs-pdf-export-plugin
+RUN pip install mkdocs-print-site-plugin
 
 # Install 'mkdocs-glightbox' with pip
 RUN pip install mkdocs-glightbox
