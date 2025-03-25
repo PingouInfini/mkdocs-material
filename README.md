@@ -35,7 +35,7 @@ Ce qui affiche le menu suivant (et laissez-vous guidez):
 ? Action : (Use arrow keys)
 ❯ Builder une nouvelle version
   Generer la documentation au format PDF
-  Generer la documentation au format HTML
+  Generer la documentation au format HTML (page html standalone)
   Quitter 
 ```
 
@@ -119,10 +119,10 @@ via le port `8001`
 Pour **exporter la documentation au format pdf** :
 
 ```bash
-node /scripts/lib/export_to_pdf.js http://<ip>>:<port>>/print_page.html out.pdf 'title'
+node /scripts/lib/export_to_pdf.js http://<ip>>:<port>>/print_page.html out.pdf 'title' 'v12.3' 'JJ/MM/AAAA hh:mm'
 ```
 
-Utilisation de ce [plugin d'export](https://timvink.github.io/mkdocs-print-site-plugin/how-to/export-PDF.html)  
+Utilisation du plugin [mkdocs-print-site-plugin](https://timvink.github.io/mkdocs-print-site-plugin/how-to/export-PDF.html)  
 Les options possibles pour adapter la forme du pdf (à adapter dans `export_to_pdf.js`) -> [ici](https://pptr.dev/api/puppeteer.pdfoptions)
 
 
@@ -143,7 +143,7 @@ cd site/
 htmlark print_page/index.html -o standalone.html
 ```
 
-Utilisation de ce [plugin d'export](https://timvink.github.io/mkdocs-print-site-plugin/how-to/export-HTML.html)
+Utilisation du plugin [mkdocs-print-site-plugin](https://timvink.github.io/mkdocs-print-site-plugin/how-to/export-HTML.html)
 
 
 

@@ -71,6 +71,7 @@ plugins:
   - print-site:
       print_page_title: 'Version complète'
       path_to_pdf: 'assets/pdf/site.pdf'
+      toc_title: 'Table des matières'
 
 extra:
   generator: false
