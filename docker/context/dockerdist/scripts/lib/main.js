@@ -3,6 +3,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
+const cheerio = require('cheerio');
 
 // Menu principal
 async function showMainMenu() {
@@ -246,7 +247,21 @@ function generateStandaloneHtml() {
 
     const htmlIndexPath = `/docs/${site_dir}/print_page.html`;
     const htmlStdlnOutPath = `/docs/${site_dir} v${currentTag}.single-page.html`;
+
+    // Générer le fichier HTML standalone avec htmlark
     execSync(`htmlark "${htmlIndexPath}" -o "${htmlStdlnOutPath}"`, { stdio: 'inherit', cwd: '/docs' });
+
+    // Charger et modifier le fichier HTML généré pour retirer les href des images
+    const htmlContent = fs.readFileSync(htmlStdlnOutPath, 'utf8');
+    const $ = cheerio.load(htmlContent);
+
+    // Sélectionner toutes les images ayant un parent lien <a> et retirer l'attribut href
+    $('a:has(img)').each(function() {
+        $(this).removeAttr('href');
+    });
+
+    // Sauvegarder le fichier HTML modifié
+    fs.writeFileSync(htmlStdlnOutPath, $.html());
 
     // Supprimer le répertoire site_dir
     fs.rmSync(`/docs/${site_dir}`, { recursive: true, force: true });
