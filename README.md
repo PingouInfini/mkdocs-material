@@ -35,6 +35,7 @@ Ce qui affiche le menu suivant (et laissez-vous guidez):
 ? Action : (Use arrow keys)
 ❯ Builder une nouvelle version
   Generer la documentation au format PDF
+  Generer la documentation au format HTML
   Quitter 
 ```
 
@@ -115,14 +116,36 @@ via le port `8001`
 > ⚠️ **Note:** Nécessite d'executer les commandes au sein du container :  
 >   `docker exec -it <container_name> ash`
 
-Pour **exporter la documentation au format pdf**, vérifier les variables dans le `mkdocs.yml`, à partir de ce [readme](https://github.com/zhaoterryy/mkdocs-pdf-export-plugin)
+Pour **exporter la documentation au format pdf** :
 
 ```bash
-ENABLE_PDF_EXPORT=1 mkdocs build
+node /scripts/lib/export_to_pdf.js http://<ip>>:<port>>/print_page.html out.pdf 'title'
 ```
 
-Le pdf est exporté selon les variables `site_name` et `combined_output_path`, définis dans le `mkdocs.yml`.  
-*Exemple: /docs/Manuel d'exemple/pdf/exported-site.pdf*
+Utilisation de ce [plugin d'export](https://timvink.github.io/mkdocs-print-site-plugin/how-to/export-PDF.html)  
+Les options possibles pour adapter la forme du pdf (à adapter dans `export_to_pdf.js`) -> [ici](https://pptr.dev/api/puppeteer.pdfoptions)
+
+
+### Export au format HTML
+
+> 💡 **Astuce** : Se référer au §[Quick start](#quick-start) pour se simplifier la vie !
+
+---
+
+> ⚠️ **Note:** Nécessite d'executer les commandes au sein du container :  
+>   `docker exec -it <container_name> ash`
+
+Pour **exporter la documentation au format html**, il faut préalablement avoir build le site, puis lancer:
+
+```bash
+mkdocs build
+cd site/
+htmlark print_page/index.html -o standalone.html
+```
+
+Utilisation de ce [plugin d'export](https://timvink.github.io/mkdocs-print-site-plugin/how-to/export-HTML.html)
+
+
 
 ## Autre
 

@@ -68,7 +68,9 @@ plugins:
       video_muted: True     #require 'is_video: True'
       video_controls: True  #require 'is_video: True'
       video_autoplay: False  #require 'is_video: True'
-  - print-site
+  - print-site:
+      print_page_title: 'Version complète'
+      path_to_pdf: 'assets/pdf/site.pdf'
 
 extra:
   generator: false

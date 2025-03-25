@@ -1,4 +1,4 @@
-const inquirer = require('@inquirer/prompts');
+const { select, input, confirm } = require('@inquirer/prompts');
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -6,11 +6,12 @@ const yaml = require('js-yaml');
 
 // Menu principal
 async function showMainMenu() {
-    const answers = await inquirer.select({
+    const answers = await select({
         message: 'Action :',
         choices: [
             { value: 'build', name: 'Builder une nouvelle version' },
             { value: 'generate_doc', name: 'Generer la documentation au format PDF' },
+            { value: 'generate_html', name: 'Generer la documentation au format HTML' },
             { value: 'quit', name: 'Quitter' }
         ]
     });
@@ -22,6 +23,9 @@ async function showMainMenu() {
         case 'generate_doc':
             generateDocPDF();
             break;
+        case 'generate_html':
+            generateStandaloneHtml();
+            break;
         case 'quit':
             console.log("Au revoir!");
             process.exit(0);
@@ -31,7 +35,7 @@ async function showMainMenu() {
 
 // Menu pour builder une nouvelle version
 async function showBuildMenu(currentTag, futureMinorVersion, futureMajorVersion) {
-    const answers = await inquirer.select({
+    const answers = await select({
         message: `Builder une nouvelle version (Version ACTUELLE [v${currentTag}]) :`,
         choices: [
             { value: 'current', name: `Version ACTUELLE [v${currentTag}]` },
@@ -68,12 +72,12 @@ async function showBuildMenu(currentTag, futureMinorVersion, futureMajorVersion)
 
 // Fonction pour générer une version personnalisée
 async function askForCustomVersion() {
-    const { version } = await inquirer.input({
+    const version = await input({
         message: 'Renseigner un numero de version (format x.y) :',
         validate: (input) => /^[0-9]+\.[0-9]+$/.test(input) || 'Format invalide. Utiliser X.Y'
     });
 
-    const { tag } = await inquirer.confirm({
+    const tag = await confirm({
         message: 'Rajouter un tag à la version ?',
         default: true
     });
@@ -94,10 +98,24 @@ function builderNouvelleVersion(version, withTag) {
 
     mkdocsBuild();
     renameSiteDir(version);
+
+    generateDefaultPDF();
+}
+
+// Focntion pour générer le pdf par defaut embarqué dans le site
+function generateDefaultPDF() {
+    const assetPdfPath = `/docs/content/assets/pdf/site.pdf`;
+    const assetPdfDir = path.dirname(newPath); // Récupérer le chemin du répertoire parent
+    fs.mkdirSync(assetPdfDir, { recursive: true });
+
+	const { site_name = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
+    execSync(`node export_to_pdf http://localhost:8000/print_page.html "${assetPdfPath}" "${site_name}"`, { stdio: 'inherit', cwd: '/scripts/lib' });
 }
 
 // Fonction pour générer la documentation en PDF
 function generateDocPDF() {
+    generateDefaultPDF();
+
 	const { site_name = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
 	const currentTag = getCurrentTag();
 
@@ -113,6 +131,17 @@ function generateDocPDF() {
 function mkdocsBuild() {
     console.log("### mkdocs build");
     execSync('mkdocs build', { stdio: 'inherit', cwd: '/docs' });
+}
+
+function generateStandaloneHtml() {
+    mkdocsBuild();
+
+	const { site_dir = 'site', plugins } = yaml.load(fs.readFileSync('/docs/mkdocs.yml', 'utf8'));
+	const currentTag = getCurrentTag();
+
+	const htmlIndexPath = `/docs/${site_dir}/print_page.html`;
+	const htmlStdlnOutPath = `/docs/${site_dir}_${currentTag}_single-page.html`;
+    execSync(`htmlark "${htmlIndexPath}" -o "${htmlStdlnOutPath}"`, { stdio: 'inherit', cwd: '/docs' });
 }
 
 // Renommer le dossier `site_dir`

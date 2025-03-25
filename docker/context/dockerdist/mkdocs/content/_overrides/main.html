@@ -6,13 +6,24 @@
 <!-- Voir https://squidfunk.github.io/mkdocs-material/customization/#overriding-blocks -->
 <!--------------------------------------------------------------------------------------->
 
-{% block config %}
-{{ super() }}
-{% if "offline" in config["plugins"] %}
-<script src="{{ 'assets/javascripts/iframe-worker.js' | url }}"></script>
-<script src="{{ 'search/search_index.js' | url }}"></script>
+{% block content %}
+
+<!-- Bouton Print Site visible sur toutes les pages sauf si l'URL contient print_page.html -->
+{% if "print_page.html" not in page.url %}
+<a href="{{ page.url_to_print_page }}" title="Print Site" class="md-content__button md-icon">
+  {% include ".icons/material/printer.svg" %}
+</a>
 {% endif %}
-{% endblock %}
+
+<!-- Bouton Site PDF visible uniquement si l'URL contient print_page.html -->
+{% if "print_page.html" in page.url %}
+<a href="assets/pdf/site.pdf" title="Site PDF" class="md-content__button md-icon">
+  {% include ".icons/material/file-pdf-box.svg" %}
+</a>
+{% endif %}
+
+{{ super() }}
+{% endblock content %}
 
 <!-- Custom front matter -->
 {% block extrahead %}

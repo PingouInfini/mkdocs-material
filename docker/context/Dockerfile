@@ -127,6 +127,7 @@ RUN pip install mike
 RUN pip install weasyprint
 RUN weasyprint --info
 RUN pip install mkdocs-print-site-plugin
+RUN pip install htmlark[http,parsers]
 
 # Install 'mkdocs-glightbox' with pip
 RUN pip install mkdocs-glightbox
