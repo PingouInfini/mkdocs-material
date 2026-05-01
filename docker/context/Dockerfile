@@ -34,9 +34,9 @@ WORKDIR /tmp
 # Copy files necessary for build
 COPY material material
 COPY package.json package.json
+COPY pyproject.toml pyproject.toml
 COPY README.md README.md
 COPY *requirements.txt ./
-COPY pyproject.toml pyproject.toml
 
 # Perform build and cleanup artifacts and caches
 RUN \
@@ -49,6 +49,7 @@ RUN \
     git-fast-import \
     jpeg-dev \
     openssh \
+    pngquant \
     tini \
     zlib-dev \
     # Libs for MkDocs PDF Export Plugin
@@ -72,6 +73,7 @@ RUN \
 && \
   apk add --no-cache --virtual .build \
     gcc \
+    g++ \
     libffi-dev \
     musl-dev \
 && \
@@ -82,6 +84,7 @@ RUN \
   if [ "${WITH_PLUGINS}" = "true" ]; then \
     pip install --no-cache-dir \
       mkdocs-material[recommended] \
+      mkdocs-material[git] \
       mkdocs-material[imaging]; \
   fi \
 && \
